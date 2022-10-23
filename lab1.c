@@ -16,15 +16,15 @@
  *
  */
 char* readString(char* fileName){
-  char readline[MAX_LINE_LEN];
+  char* readline = malloc(MAX_LINE_LEN*sizeof(char));
 
   FILE * openfile = fopen(fileName,"r");
-  char* readlines = fgets(readline,MAX_LINE_LEN-1,openfile);
-  //printf("%s", readline);
+  strcpy(readline,fgets(readline,MAX_LINE_LEN-1,openfile));
 
   fclose(openfile);
 
-  return readlines;
+
+  return readline;
 }
 
 /*
@@ -43,42 +43,27 @@ char* readString(char* fileName){
  */
 char* mysteryExplode(const char* str){
   int size = strlen(str)-1;
+  int result = ((size*(size+1))/2);
 
-
-  int result = ((size*(size+1))/2)+1;
   char* output = malloc(result*sizeof(char));
-  char* input = malloc(size*sizeof(char));
-  strcpy(input, str);
-  strcpy(input, output);
-
+  output=calloc(result+1,1);
 
 
   int count = 0;
   for (int i=0; i<size; i++)
   {
-    for(int j=0; j<= count; j++)
+    for(int j=0; j<=count; j++)
     {
-      strcpy(output, strncat(output, &input[j],1));
+      strcpy(output, strncat(output, &str[j],1));
 
     }
     count++;
   }
 
-
   return output;
 }
 
-//Testing Main function used when creating/testing functions
 
-/*
-int main(int argc, char** argv) {
-  char* explodedString = NULL;
-  char* str = NULL;
-  char file[MAX_LINE_LEN] = "test1.txt";
-  str = readString(file);
-  explodedString = mysteryExplode(str);
-  printf("%s --> %s\n",str,explodedString);
-}
-*/
+
 
 
