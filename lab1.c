@@ -16,15 +16,13 @@
  *
  */
 char* readString(char* fileName){
-  char* readline = malloc(MAX_LINE_LEN*sizeof(char));
+  char* readline = malloc(MAX_LINE_LEN*sizeof(char)); //allocating space to store the contents of whatever text file is opened (up to 99 + \0)
 
   FILE * openfile = fopen(fileName,"r");
   strcpy(readline,fgets(readline,MAX_LINE_LEN-1,openfile));
+  fclose(openfile); //closing the file and freeing the memory taken by the FILE pointer
 
-  fclose(openfile);
-
-
-  return readline;
+  return readline; //return the contents of the opened textfile
 }
 
 /*
@@ -42,24 +40,22 @@ char* readString(char* fileName){
  *
  */
 char* mysteryExplode(const char* str){
-  int size = strlen(str)-1;
-  int result = ((size*(size+1))/2);
-
-  char* output = malloc(result*sizeof(char));
-  output=calloc(result+1,1);
+  int size = strlen(str)-1; //getting the size of the string without the null character to calculate exact size needed for the expldoed string
+  int result = ((size*(size+1))/2); //using nth triangle number formula to calculate the number of characters in the exploded string, using the size
+  char* output=calloc(result+1,1); //allocating space for the exploded string itself
 
 
-  int count = 0;
+  int count = 0; //flag to tell loop where to stop copying chars
   for (int i=0; i<size; i++)
   {
     for(int j=0; j<=count; j++)
     {
-      strcpy(output, strncat(output, &str[j],1));
+      strcpy(output, strncat(output, &str[j],1)); //copies char to output string
 
     }
     count++;
   }
-
+  //nested for-loop found to be the best method of generating the nth triangle number pattern for strings
   return output;
 }
 
