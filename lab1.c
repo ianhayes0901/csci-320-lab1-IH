@@ -42,7 +42,7 @@ char* readString(char* fileName){
 char* mysteryExplode(const char* str){
   int size = strlen(str)-1; //getting the size of the string without the null character to calculate exact size needed for the expldoed string
   int result = ((size*(size+1))/2); //using nth triangle number formula to calculate the number of characters in the exploded string, using the size
-  char* output=calloc(result+1,1); //allocating space for the exploded string itself
+  char* output=calloc(result,1); //allocating space for the exploded string itself
 
 
   for (int i=0; i<size; i++)
