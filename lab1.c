@@ -44,25 +44,13 @@ char* mysteryExplode(const char* str){
   int result = ((size*(size+1))/2); //using nth triangle number formula to calculate the number of characters in the exploded string, using the size
   char* output=calloc(result+1,1); //allocating space for the exploded string itself
 
-<<<<<<< HEAD
+
   for (int i=0; i<size; i++)
   {
     for(int j=0; j<=i; j++)
-=======
-
-  int count = 0; //flag to tell loop where to stop copying chars
-  for (int i=0; i<size; i++)
-  {
-    for(int j=0; j<=count; j++)
->>>>>>> c8f2696c8f4b5364eb986a6c22c1cd5e64a5e535
     {
       strcpy(output, strncat(output, &str[j],1)); //copies char to output string
-
     }
-<<<<<<< HEAD
-=======
-    count++;
->>>>>>> c8f2696c8f4b5364eb986a6c22c1cd5e64a5e535
   }
   //nested for-loop found to be the best method of generating the nth triangle number pattern for strings
   return output;
