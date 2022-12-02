@@ -19,10 +19,12 @@ char* readString(char* fileName){
   char* readline = malloc(MAX_LINE_LEN*sizeof(char)); //allocating space to store the contents of whatever text file is opened (up to 99 + \0)
 
   FILE * openfile = fopen(fileName,"r");
-  strcpy(readline,fgets(readline,MAX_LINE_LEN-1,openfile));
+  fgets(readline,MAX_LINE_LEN, openfile);
+  readline[strcspn (readline, "\n" )] = '\0'; //replaces the null character added from fgets to be a null charater
   fclose(openfile); //closing the file and freeing the memory taken by the FILE pointer
 
-  return readline; //return the contents of the opened textfile
+  return readline;
+  //return readline; //return the contents of the opened textfile
 }
 
 /*
@@ -40,20 +42,19 @@ char* readString(char* fileName){
  *
  */
 char* mysteryExplode(const char* str){
-  int size = strlen(str)-1; //getting the size of the string without the null character to calculate exact size needed for the exploded string
-  int result = ((size*(size+1))/2); //using nth triangle number formula to calculate the number of characters in the exploded string, using the size
-  char* output=calloc(result,1); //allocating space for the exploded string itself
-
-
-  for (int i=0; i<size; i++)
+  char* exploded_string;
+  int str_size = strlen(str); //getting the size of the string without the null character to calculate exact size needed for the exploded string
+  int exploded_string_size = ((str_size*(str_size+1))/2)+1; 
+  /*using nth triangle number formula to calculate the number of characters in the exploded string
+  *using the size of the passed string and adding one extra to account for null character
+  */
+  exploded_string = (char *)malloc(exploded_string_size); //allocating space for the exploded string itself
+  memset(exploded_string,'\0',exploded_string_size);
+  for(int i = 0; i < str_size; i++)
   {
-    for(int j=0; j<=i; j++)
-    {
-      strcpy(output, strncat(output, &str[j],1)); //copies char to output string
-    }
+    strncat(exploded_string,str,i+1); //copies i+1 total characters from str to the output string exploded_string
   }
-  //nested for-loop found to be the best method of generating the nth triangle number pattern for strings
-  return output;
+  return exploded_string;
 }
 
 
